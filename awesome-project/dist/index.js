@@ -78,7 +78,7 @@
 var _require = __webpack_require__(1),
     router = _require.router;
 
-var App = __webpack_require__(5);
+var App = __webpack_require__(19);
 /* eslint-disable no-new */
 new Vue(Vue.util.extend({ el: '#root', router: router }, App));
 router.push('/');
@@ -91,7 +91,7 @@ router.push('/');
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+	value: true
 });
 exports.router = undefined;
 
@@ -99,21 +99,44 @@ var _vueRouter = __webpack_require__(2);
 
 var _vueRouter2 = _interopRequireDefault(_vueRouter);
 
-var _HelloWorld = __webpack_require__(3);
+var _Test = __webpack_require__(3);
+
+var _Test2 = _interopRequireDefault(_Test);
+
+var _TestOne = __webpack_require__(7);
+
+var _TestOne2 = _interopRequireDefault(_TestOne);
+
+var _HelloWorld = __webpack_require__(11);
 
 var _HelloWorld2 = _interopRequireDefault(_HelloWorld);
 
+var _TestTwo = __webpack_require__(15);
+
+var _TestTwo2 = _interopRequireDefault(_TestTwo);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/*global Vue*/
-Vue.use(_vueRouter2.default);
-
+Vue.use(_vueRouter2.default); /*global Vue*/
 var router = exports.router = new _vueRouter2.default({
-  routes: [{
-    path: '/',
-    name: 'HelloWorld',
-    component: _HelloWorld2.default
-  }]
+	mode: "abstract",
+	routes: [{
+		path: '/',
+		name: 'HelloWorld',
+		component: _HelloWorld2.default
+	}, {
+		path: '/one',
+		name: 'one',
+		component: _Test2.default
+	}, {
+		path: '/two',
+		name: 'two',
+		component: _TestOne2.default
+	}, {
+		path: '/last',
+		name: 'last',
+		component: _TestTwo2.default
+	}]
 });
 
 /***/ }),
@@ -2969,8 +2992,15 @@ if (inBrowser && window.Vue) {
 var __vue_exports__, __vue_options__
 var __vue_styles__ = []
 
+/* styles */
+__vue_styles__.push(__webpack_require__(4)
+)
+
+/* script */
+__vue_exports__ = __webpack_require__(5)
+
 /* template */
-var __vue_template__ = __webpack_require__(4)
+var __vue_template__ = __webpack_require__(6)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -2982,9 +3012,10 @@ __vue_options__ = __vue_exports__ = __vue_exports__.default
 if (typeof __vue_options__ === "function") {
   __vue_options__ = __vue_options__.options
 }
-__vue_options__.__file = "E:\\前端书籍\\nodejs\\weex-test\\awesome-project\\src\\components\\HelloWorld.vue"
+__vue_options__.__file = "E:\\前端书籍\\nodejs\\weex-test\\awesome-project\\src\\components\\Test.vue"
 __vue_options__.render = __vue_template__.render
 __vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+__vue_options__._scopeId = "data-v-593689a2"
 __vue_options__.style = __vue_options__.style || {}
 __vue_styles__.forEach(function (module) {
   for (var name in module) {
@@ -3002,29 +3033,68 @@ module.exports = __vue_exports__
 /* 4 */
 /***/ (function(module, exports) {
 
+module.exports = {
+  "message": {
+    "paddingTop": "10",
+    "paddingRight": "10",
+    "paddingBottom": "10",
+    "paddingLeft": "10"
+  }
+}
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+//
+//
+//
+//
+
+exports.default = {
+	data: function data() {
+		return {};
+	},
+
+	methods: {},
+	created: function created() {
+		console.log('list---created??????????---');
+	}
+};
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('text', {
     staticClass: ["message"]
-  }, [_vm._v("Now, let's use Vue.js to build your Weex app.")])
+  }, [_vm._v("this is list")])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __vue_exports__, __vue_options__
 var __vue_styles__ = []
 
 /* styles */
-__vue_styles__.push(__webpack_require__(6)
+__vue_styles__.push(__webpack_require__(8)
 )
 
 /* script */
-__vue_exports__ = __webpack_require__(7)
+__vue_exports__ = __webpack_require__(9)
 
 /* template */
-var __vue_template__ = __webpack_require__(12)
+var __vue_template__ = __webpack_require__(10)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -3036,10 +3106,10 @@ __vue_options__ = __vue_exports__ = __vue_exports__.default
 if (typeof __vue_options__ === "function") {
   __vue_options__ = __vue_options__.options
 }
-__vue_options__.__file = "E:\\前端书籍\\nodejs\\weex-test\\awesome-project\\src\\index.vue"
+__vue_options__.__file = "E:\\前端书籍\\nodejs\\weex-test\\awesome-project\\src\\components\\TestOne.vue"
 __vue_options__.render = __vue_template__.render
 __vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-__vue_options__._scopeId = "data-v-1a4d8e3c"
+__vue_options__._scopeId = "data-v-d6aeaad8"
 __vue_options__.style = __vue_options__.style || {}
 __vue_styles__.forEach(function (module) {
   for (var name in module) {
@@ -3054,23 +3124,105 @@ module.exports = __vue_exports__
 
 
 /***/ }),
-/* 6 */
+/* 8 */
+/***/ (function(module, exports) {
+
+module.exports = {}
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+	data: function data() {
+		return {
+			hello: 'TestOne'
+		};
+	}
+};
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('text', [_vm._v(_vm._s(_vm.hello))])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_exports__, __vue_options__
+var __vue_styles__ = []
+
+/* styles */
+__vue_styles__.push(__webpack_require__(12)
+)
+
+/* script */
+__vue_exports__ = __webpack_require__(13)
+
+/* template */
+var __vue_template__ = __webpack_require__(14)
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "E:\\前端书籍\\nodejs\\weex-test\\awesome-project\\src\\components\\HelloWorld.vue"
+__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+__vue_options__._scopeId = "data-v-656039f0"
+__vue_options__.style = __vue_options__.style || {}
+__vue_styles__.forEach(function (module) {
+  for (var name in module) {
+    __vue_options__.style[name] = module[name]
+  }
+})
+if (typeof __register_static_styles__ === "function") {
+  __register_static_styles__(__vue_options__._scopeId, __vue_styles__)
+}
+
+module.exports = __vue_exports__
+
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = {
-  "testInput": {
-    "height": "80",
+  "message": {
     "paddingTop": "10",
     "paddingRight": "10",
     "paddingBottom": "10",
     "paddingLeft": "10",
+    "marginTop": "30",
+    "marginRight": "30",
+    "marginBottom": "30",
+    "marginLeft": "30",
     "fontSize": "32",
-    "width": "750",
-    "borderBottomWidth": "1"
-  },
-  "wrapper": {
-    "justifyContent": "center",
-    "alignItems": "center"
+    "color": "#727272"
   },
   "logo": {
     "width": "424",
@@ -3105,14 +3257,6 @@ module.exports = {
     "fontSize": "50",
     "color": "#41B883"
   },
-  "message": {
-    "marginTop": "30",
-    "marginRight": "30",
-    "marginBottom": "30",
-    "marginLeft": "30",
-    "fontSize": "32",
-    "color": "#727272"
-  },
   "item-list": {
     "flexWrap": "wrap",
     "flexDirection": "row"
@@ -3123,7 +3267,7 @@ module.exports = {
 }
 
 /***/ }),
-/* 7 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3132,18 +3276,6 @@ module.exports = {
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-
-var _topHeader = __webpack_require__(8);
-
-var _topHeader2 = _interopRequireDefault(_topHeader);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var modal = weex.requireModule('modal'); //
-//
-//
-//
-//
 //
 //
 //
@@ -3160,8 +3292,7 @@ var modal = weex.requireModule('modal'); //
 //
 
 exports.default = {
-	name: 'App',
-	components: { topHeader: _topHeader2.default },
+	name: 'HelloWorld',
 	data: function data() {
 		return {
 			logo: 'https://gw.alicdn.com/tfs/TB1yopEdgoQMeJjy1XaXXcSsFXa-640-302.png',
@@ -3176,6 +3307,234 @@ exports.default = {
 		}
 	},
 	created: function created() {
+		console.log('list---created---');
+	}
+};
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('text', {
+    staticClass: ["message"]
+  }, [_vm._v("Now, let's use Vue.js to build your Weex app?????????.")]), _c('image', {
+    staticClass: ["logo"],
+    attrs: {
+      "src": _vm.logo
+    }
+  }), _c('text', {
+    staticClass: ["greeting"]
+  }, [_vm._v("The environment is ready!")]), _c('div', {
+    staticClass: ["item-list"]
+  }, _vm._l((_vm.list), function(item, index) {
+    return _c('div', {
+      staticClass: ["item"]
+    }, [_c('text', [_vm._v(_vm._s(item))])])
+  })), _c('div', {
+    class: [_vm.isMove ? 'moved' : 'box1', 'box'],
+    on: {
+      "click": _vm.move
+    }
+  })])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_exports__, __vue_options__
+var __vue_styles__ = []
+
+/* styles */
+__vue_styles__.push(__webpack_require__(16)
+)
+
+/* script */
+__vue_exports__ = __webpack_require__(17)
+
+/* template */
+var __vue_template__ = __webpack_require__(18)
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "E:\\前端书籍\\nodejs\\weex-test\\awesome-project\\src\\components\\TestTwo.vue"
+__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+__vue_options__._scopeId = "data-v-a5df490c"
+__vue_options__.style = __vue_options__.style || {}
+__vue_styles__.forEach(function (module) {
+  for (var name in module) {
+    __vue_options__.style[name] = module[name]
+  }
+})
+if (typeof __register_static_styles__ === "function") {
+  __register_static_styles__(__vue_options__._scopeId, __vue_styles__)
+}
+
+module.exports = __vue_exports__
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports) {
+
+module.exports = {}
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+	data: function data() {
+		return {
+			hello: 'this is the last'
+		};
+	}
+};
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: ["TestLast"]
+  }, [_c('text', [_vm._v(_vm._s(_vm.hello))])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_exports__, __vue_options__
+var __vue_styles__ = []
+
+/* styles */
+__vue_styles__.push(__webpack_require__(20)
+)
+
+/* script */
+__vue_exports__ = __webpack_require__(21)
+
+/* template */
+var __vue_template__ = __webpack_require__(30)
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "E:\\前端书籍\\nodejs\\weex-test\\awesome-project\\src\\index.vue"
+__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+__vue_options__._scopeId = "data-v-1a4d8e3c"
+__vue_options__.style = __vue_options__.style || {}
+__vue_styles__.forEach(function (module) {
+  for (var name in module) {
+    __vue_options__.style[name] = module[name]
+  }
+})
+if (typeof __register_static_styles__ === "function") {
+  __register_static_styles__(__vue_options__._scopeId, __vue_styles__)
+}
+
+module.exports = __vue_exports__
+
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports) {
+
+module.exports = {
+  "testInput": {
+    "height": "80",
+    "paddingTop": "10",
+    "paddingRight": "10",
+    "paddingBottom": "10",
+    "paddingLeft": "10",
+    "fontSize": "32",
+    "width": "750",
+    "borderBottomWidth": "1"
+  },
+  "wrapper": {
+    "justifyContent": "center",
+    "alignItems": "center"
+  }
+}
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _topHeader = __webpack_require__(22);
+
+var _topHeader2 = _interopRequireDefault(_topHeader);
+
+var _bottom = __webpack_require__(26);
+
+var _bottom2 = _interopRequireDefault(_bottom);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var modal = weex.requireModule('modal');
+exports.default = {
+	name: 'App',
+	components: { topHeader: _topHeader2.default, Bottom: _bottom2.default },
+	data: function data() {
+		return {};
+	},
+
+	methods: {},
+	created: function created() {
 		modal.toast({
 			message: '页面初始化成功',
 			duration: 3
@@ -3184,21 +3543,21 @@ exports.default = {
 };
 
 /***/ }),
-/* 8 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __vue_exports__, __vue_options__
 var __vue_styles__ = []
 
 /* styles */
-__vue_styles__.push(__webpack_require__(9)
+__vue_styles__.push(__webpack_require__(23)
 )
 
 /* script */
-__vue_exports__ = __webpack_require__(10)
+__vue_exports__ = __webpack_require__(24)
 
 /* template */
-var __vue_template__ = __webpack_require__(11)
+var __vue_template__ = __webpack_require__(25)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -3228,7 +3587,7 @@ module.exports = __vue_exports__
 
 
 /***/ }),
-/* 9 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -3248,7 +3607,7 @@ module.exports = {
 }
 
 /***/ }),
-/* 10 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3267,7 +3626,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {};
 
 /***/ }),
-/* 11 */
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -3282,11 +3641,145 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 module.exports.render._withStripped = true
 
 /***/ }),
-/* 12 */
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_exports__, __vue_options__
+var __vue_styles__ = []
+
+/* styles */
+__vue_styles__.push(__webpack_require__(27)
+)
+
+/* script */
+__vue_exports__ = __webpack_require__(28)
+
+/* template */
+var __vue_template__ = __webpack_require__(29)
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "E:\\前端书籍\\nodejs\\weex-test\\awesome-project\\src\\components\\bottom.vue"
+__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+__vue_options__._scopeId = "data-v-3acedeca"
+__vue_options__.style = __vue_options__.style || {}
+__vue_styles__.forEach(function (module) {
+  for (var name in module) {
+    __vue_options__.style[name] = module[name]
+  }
+})
+if (typeof __register_static_styles__ === "function") {
+  __register_static_styles__(__vue_options__._scopeId, __vue_styles__)
+}
+
+module.exports = __vue_exports__
+
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports) {
+
+module.exports = {
+  "bottom": {
+    "position": "fixed",
+    "bottom": "0",
+    "flexDirection": "row",
+    "flexWrap": "wrap",
+    "width": "750",
+    "borderTopWidth": "1",
+    "borderTopColor": "#000000",
+    "borderTopStyle": "solid"
+  },
+  "bottom-item": {
+    "flex": 1,
+    "justifyContent": "center",
+    "alignItems": "center",
+    "paddingTop": "20",
+    "paddingRight": "0",
+    "paddingBottom": "20",
+    "paddingLeft": "0",
+    "borderRightWidth": "1",
+    "borderRightColor": "#000000",
+    "borderRightStyle": "solid"
+  }
+}
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+	data: function data() {
+		return {};
+	},
+
+	methods: {
+		routerGo: function routerGo(val) {
+			//debugger; 
+			console.log(val);
+			if (val == '1') {
+				this.$router.push({ path: '/' });
+			} else if (val == '2') {
+				this.$router.push('/one');
+			} else if (val == '3') {
+				this.$router.push({ name: 'two' });
+			} else {
+				this.$router.push('/last');
+			}
+		}
+	}
+};
+
+/***/ }),
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('topHeader'), _vm._m(0), _c('router-view')], 1)
+  return _c('div', {
+    staticClass: ["bottom"]
+  }, _vm._l((4), function(item) {
+    return _c('div', {
+      staticClass: ["bottom-item"],
+      on: {
+        "click": function($event) {
+          _vm.routerGo(item)
+        }
+      }
+    }, [_c('text', [_vm._v(_vm._s(item))])])
+  }))
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('topHeader'), _vm._m(0), _c('router-view'), _c('Bottom')], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('input', {
     staticClass: ["testInput"],
