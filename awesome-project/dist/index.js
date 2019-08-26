@@ -3056,6 +3056,7 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
 
 exports.default = {
 	data: function data() {
@@ -3263,6 +3264,34 @@ module.exports = {
   },
   "item": {
     "flex": 1
+  },
+  "home-header": {
+    "display": "flex",
+    "flexDirection": "row"
+  },
+  "search": {
+    "flex": 1
+  },
+  "search-input": {
+    "marginTop": "10",
+    "height": "70",
+    "backgroundColor": "#D3D3D3",
+    "borderRadius": "10",
+    "textIndent": "20",
+    "fontSize": "30",
+    "placeholderColor": "white"
+  },
+  "scan": {
+    "width": "120",
+    "height": "100",
+    "justifyContent": "center",
+    "alignItems": "center"
+  },
+  "home-message": {
+    "width": "120",
+    "height": "100",
+    "justifyContent": "center",
+    "alignItems": "center"
   }
 }
 
@@ -3276,6 +3305,19 @@ module.exports = {
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3316,28 +3358,30 @@ exports.default = {
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('text', {
-    staticClass: ["message"]
-  }, [_vm._v("Now, let's use Vue.js to build your Weex app?????????.")]), _c('image', {
-    staticClass: ["logo"],
+  return _vm._m(0)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: ["home"]
+  }, [_c('div', {
+    staticClass: ["home-header"]
+  }, [_c('div', {
+    staticClass: ["scan"]
+  }, [_c('text', {
+    staticClass: ["iconfont"]
+  }), _c('text', [_vm._v("扫一扫")])]), _c('div', {
+    staticClass: ["search"]
+  }, [_c('input', {
+    staticClass: ["search-input"],
     attrs: {
-      "src": _vm.logo
+      "type": "text",
+      "placeholder": "请随便输入点什么吧"
     }
-  }), _c('text', {
-    staticClass: ["greeting"]
-  }, [_vm._v("The environment is ready!")]), _c('div', {
-    staticClass: ["item-list"]
-  }, _vm._l((_vm.list), function(item, index) {
-    return _c('div', {
-      staticClass: ["item"]
-    }, [_c('text', [_vm._v(_vm._s(item))])])
-  })), _c('div', {
-    class: [_vm.isMove ? 'moved' : 'box1', 'box'],
-    on: {
-      "click": _vm.move
-    }
-  })])
-},staticRenderFns: []}
+  })]), _c('div', {
+    staticClass: ["home-message"]
+  }, [_c('text', {
+    staticClass: ["iconfont"]
+  }), _c('text', [_vm._v("消息")])])])])
+}]}
 module.exports.render._withStripped = true
 
 /***/ }),
@@ -3441,7 +3485,7 @@ __vue_styles__.push(__webpack_require__(20)
 __vue_exports__ = __webpack_require__(21)
 
 /* template */
-var __vue_template__ = __webpack_require__(30)
+var __vue_template__ = __webpack_require__(31)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -3510,9 +3554,11 @@ var _bottom = __webpack_require__(26);
 
 var _bottom2 = _interopRequireDefault(_bottom);
 
+__webpack_require__(29);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//
+var modal = weex.requireModule('modal'); //
 //
 //
 //
@@ -3525,7 +3571,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 
-var modal = weex.requireModule('modal');
 exports.default = {
 	name: 'App',
 	components: { topHeader: _topHeader2.default, Bottom: _bottom2.default },
@@ -3592,7 +3637,7 @@ module.exports = __vue_exports__
 
 module.exports = {
   "topHeader": {
-    "background": "red",
+    "backgroundColor": "#FF0000",
     "paddingTop": "10",
     "paddingRight": "10",
     "paddingBottom": "10",
@@ -3655,7 +3700,7 @@ __vue_styles__.push(__webpack_require__(27)
 __vue_exports__ = __webpack_require__(28)
 
 /* template */
-var __vue_template__ = __webpack_require__(29)
+var __vue_template__ = __webpack_require__(30)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -3699,6 +3744,9 @@ module.exports = {
     "borderTopColor": "#000000",
     "borderTopStyle": "solid"
   },
+  "isActive": {
+    "color": "#FF0000"
+  },
   "bottom-item": {
     "flex": 1,
     "justifyContent": "center",
@@ -3731,14 +3779,43 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
+//import '../common/style.css'; 
 exports.default = {
 	data: function data() {
-		return {};
+		return {
+			active: '1'
+		};
 	},
 
 	methods: {
+		isActive: function isActive(url) {
+			return this.active == url ? 'isActive' : '';
+		},
 		routerGo: function routerGo(val) {
+			this.active = val;
 			//debugger; 
 			console.log(val);
 			if (val == '1') {
@@ -3758,38 +3835,93 @@ exports.default = {
 /* 29 */
 /***/ (function(module, exports) {
 
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: ["bottom"]
-  }, _vm._l((4), function(item) {
-    return _c('div', {
-      staticClass: ["bottom-item"],
-      on: {
-        "click": function($event) {
-          _vm.routerGo(item)
-        }
-      }
-    }, [_c('text', [_vm._v(_vm._s(item))])])
-  }))
-},staticRenderFns: []}
-module.exports.render._withStripped = true
+throw new Error("Module parse failed: Unexpected token (1:9)\nYou may need an appropriate loader to handle this file type.\n| html,body{ \r\n| \tpadding: 0px;\r\n| \tmargin: 0px;\r");
 
 /***/ }),
 /* 30 */
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('topHeader'), _vm._m(0), _c('router-view'), _c('Bottom')], 1)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('input', {
-    staticClass: ["testInput"],
-    attrs: {
-      "placeholder": "随便写点什么吧"
+  return _c('div', {
+    staticClass: ["bottom"]
+  }, [_c('div', {
+    staticClass: ["bottom"]
+  }, [_c('div', {
+    staticClass: ["bottom-item"],
+    on: {
+      "click": function($event) {
+        _vm.routerGo('1')
+      }
     }
-  }), _c('image', {
-    staticClass: ["testImage"]
-  })])
-}]}
+  }, [_c('text', {
+    staticClass: ["bar-ic", "iconfont"],
+    class: [this.isActive('1')]
+  }, [_vm._v("")]), _c('text', {
+    staticClass: ["bar-text"],
+    class: [this.isActive('1')]
+  }, [_vm._v("首页")])]), _c('div', {
+    staticClass: ["bottom-item"],
+    on: {
+      "click": function($event) {
+        _vm.routerGo('2')
+      }
+    }
+  }, [_c('text', {
+    staticClass: ["bar-ic", "iconfont"],
+    class: [this.isActive('2')]
+  }, [_vm._v("")]), _c('text', {
+    staticClass: ["bar-text"],
+    class: [this.isActive('2')]
+  }, [_vm._v("专题")])]), _c('div', {
+    staticClass: ["bottom-item"],
+    on: {
+      "click": function($event) {
+        _vm.routerGo('3')
+      }
+    }
+  }, [_c('text', {
+    staticClass: ["bar-ic", "iconfont"],
+    class: [this.isActive('3')]
+  }, [_vm._v("")]), _c('text', {
+    staticClass: ["bar-text"],
+    class: [this.isActive('3')]
+  }, [_vm._v("分类")])]), _c('div', {
+    staticClass: ["bottom-item"],
+    on: {
+      "click": function($event) {
+        _vm.routerGo('4')
+      }
+    }
+  }, [_c('text', {
+    staticClass: ["bar-ic", "iconfont"],
+    class: [this.isActive('4')]
+  }, [_vm._v("")]), _c('text', {
+    staticClass: ["bar-text"],
+    class: [this.isActive('4')]
+  }, [_vm._v("购物车")])]), _c('div', {
+    staticClass: ["bottom-item"],
+    on: {
+      "click": function($event) {
+        _vm.routerGo('5')
+      }
+    }
+  }, [_c('text', {
+    staticClass: ["bar-ic", "iconfont"],
+    class: [this.isActive('5')]
+  }, [_vm._v("")]), _c('text', {
+    staticClass: ["bar-text"],
+    class: [this.isActive('5')]
+  }, [_vm._v("个人")])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('topHeader'), _c('router-view'), _c('Bottom')], 1)
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 
 /***/ })

@@ -1,4 +1,5 @@
 <template>
+	
   <text class="message">this is list</text>
 </template>
   

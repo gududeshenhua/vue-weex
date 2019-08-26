@@ -1,6 +1,6 @@
 <template>
-	<div>
-  <text class="message">Now, let's use Vue.js to build your Weex app?????????.</text>
+	<div class="home">
+ <!-- <text class="message">Now, let's use Vue.js to build your Weex app?????????.</text>
 	<image :src="logo" class="logo" />
 	<text class="greeting">The environment is ready!</text>
 	<div class="item-list">
@@ -8,7 +8,20 @@
 			<text>{{item}}</text>
 		</div> 
 	</div>
-	<div @click="move" :class="[isMove?'moved':'box1','box']"></div>
+	<div @click="move" :class="[isMove?'moved':'box1','box']"></div> -->
+	  <div class="home-header">
+		  <div class="scan">
+			  <text class="iconfont"></text>
+			  <text>扫一扫</text>
+		  </div>
+		  <div class="search">
+			  <input class="search-input" type="text" placeholder="请随便输入点什么吧"></input>
+		  </div>  
+		  <div class="home-message">
+			  <text class="iconfont"></text>
+			  <text>消息</text>  
+		  </div>
+	  </div>
 	</div>
 </template>
   
@@ -21,7 +34,7 @@
 				 list:['A','B','C'],
 				 isMove:false  
 			 }
-		 }, 
+		 },  
 		 methods:{
 			 move(){  
 			 	this.isMove = !this.isMove;
@@ -76,5 +89,27 @@
 	}
 	.item{
 		flex:1;
-	} 
+	}
+	 .home-header{
+		 display: flex;
+		 flex-direction: row; 
+	 }
+	 .search{
+		 flex: 1; 
+	 }
+	 .search-input{ 
+		 margin-top: 10px;
+		 height: 70px; 
+		  background-color: lightgray;
+		  border-radius: 10px; 
+		  text-indent: 20px; 
+		  font-size: 30px;  
+		  placeholder-color: white; 
+ 	 }
+	.scan,.home-message{
+		width: 120px; 
+		height: 100px;
+		justify-content: center;
+		align-items: center; 
+	}
 </style>

@@ -1,18 +1,19 @@
 <template>
   <div>
 		<topHeader></topHeader>
-		<div>
+		<!-- <div>
 			<input class="testInput"  placeholder="随便写点什么吧"/>
-			<image class="testImage"></image> 
-		</div>
+			<image class="testImage"></image>  
+		</div> -->
     <router-view></router-view> 
-		<Bottom></Bottom>
-  </div> 
+		<Bottom></Bottom>  
+  </div>  
 </template>
 
 <script>
 import topHeader from './components/topHeader.vue';
-import Bottom from './components/bottom.vue'
+import Bottom from './components/bottom.vue';  
+import "./common/style.css";  
 var modal = weex.requireModule('modal');
 export default {
   name: 'App',
@@ -45,4 +46,5 @@ export default {
     justify-content: center;
     align-items: center;
   } 
+	
 </style>

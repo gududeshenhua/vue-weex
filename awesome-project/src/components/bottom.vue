@@ -1,24 +1,51 @@
 <template>
 	<div class="bottom">
-		<div class="bottom-item" v-for="item in 4"  @click="routerGo(item)">
+		<!-- <div class="bottom-item" v-for="item in 4"  @click="routerGo(item)">
 			<text>{{item}}</text> 
-		</div> 
+		</div> -->
+		<div class="bottom">
+			<div class="bottom-item" @click="routerGo('1')">
+			 <text class="bar-ic iconfont" :class="[this.isActive('1')]">&#xe61a;</text> 
+			 <text class="bar-text" :class="[this.isActive('1')]">首页</text>
+			</div>   
+			<div class="bottom-item" @click="routerGo('2')">
+			 <text class="bar-ic iconfont" :class="[this.isActive('2')]">&#xe61b;</text> 
+			 <text class="bar-text" :class="[this.isActive('2')]">专题</text>
+			</div>   
+			<div class="bottom-item" @click="routerGo('3')">
+			 <text class="bar-ic iconfont" :class="[this.isActive('3')]">&#xe60f;</text> 
+			 <text class="bar-text" :class="[this.isActive('3')]">分类</text>
+			</div>   
+			<div class="bottom-item" @click="routerGo('4')">
+			 <text class="bar-ic iconfont" :class="[this.isActive('4')]">&#xe645;</text> 
+			 <text class="bar-text" :class="[this.isActive('4')]">购物车</text>
+			</div>   
+			<div class="bottom-item" @click="routerGo('5')">    
+			 <text class="bar-ic iconfont" :class="[this.isActive('5')]">&#xe60e;</text> 
+			 <text class="bar-text" :class="[this.isActive('5')]">个人</text>
+			</div> 
+		</div>
 	</div>
 </template>
 
 <script>
-	export default{
-		data(){
+	//import '../common/style.css'; 
+	export default{  
+		data(){  
 			return{
-				
+				active:'1'
 			}
 		},
 		methods:{
-			routerGo(val){ 
+			isActive(url){ 
+				return this.active == url?'isActive':''
+			},
+			routerGo(val){  
+				this.active = val; 
 				//debugger; 
 				console.log(val); 
 				if(val=='1'){
-					this.$router.push({path:'/'}); 
+					this.$router.push({path:'/'});  
 				}else if(val=='2'){
 					this.$router.push('/one');     
 				}else if(val=='3'){
@@ -31,7 +58,7 @@
 	}
 </script>
 
-<style scoped>
+<style scoped> 
 	.bottom{
 		position: fixed;
 		bottom: 0px;
@@ -41,6 +68,10 @@
 		border-top-width: 1px;
 		border-top-color: black;
 		border-top-style: solid; 
+	}
+	.isActive{
+		/* background-color: red; */
+		color: red; 
 	}
 	.bottom-item{
 		flex: 1;

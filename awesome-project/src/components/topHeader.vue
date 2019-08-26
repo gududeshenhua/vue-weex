@@ -12,7 +12,7 @@
 
 <style scoped>
 	.topHeader{
-	   background: red; 
+	   background-color: red;  
 	   padding: 10px;
 	}
 	.top-text{

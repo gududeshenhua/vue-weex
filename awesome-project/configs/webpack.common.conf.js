@@ -121,7 +121,10 @@ const webConfig = {
           loader: 'babel-loader'
         }],
         exclude: config.excludeModuleReg
-      },
+      },{
+        test: /\.css$/,
+        use: [ 'style-loader', 'css-loader' ]
+      },  
       {
         test: /\.vue(\?[^?]+)?$/,
         use: [{
