@@ -71,7 +71,7 @@
 	}
 	.isActive{
 		/* background-color: red; */
-		color: red; 
+		color: #b4282d;  
 	}
 	.bottom-item{
 		flex: 1;

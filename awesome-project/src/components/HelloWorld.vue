@@ -22,27 +22,46 @@
 			  <text>消息</text>  
 		  </div>
 	  </div>
+	   <scroller class="scroller" @click="chooseChannel" scroll-direction="horizontal" loadmoreoffset="750px" show-scrollbar=true> 
+	        <div class="scroller-ative" :style="positionStyle"></div>
+			<div class="row" v-for="item in rows">  
+				<text class="text">{{item}}</text>
+			</div>
+	   </scroller>
 	</div>
 </template>
   
 <script>
+	 const animation = weex.requireModule('animation'); 
 	   export default{
 	   	 name:'HelloWorld', 
 		 data(){
 			 return{
 				  logo: 'https://gw.alicdn.com/tfs/TB1yopEdgoQMeJjy1XaXXcSsFXa-640-302.png',
 				 list:['A','B','C'],
-				 isMove:false  
+				 isMove:false  ,
+				 rows:['推荐','限时购','新品','居家','餐厨','配件','服装','电器','洗护','杂货','美食','等等','等等'],
+				 positionStyle:{}
 			 }
 		 },  
 		 methods:{
 			 move(){  
 			 	this.isMove = !this.isMove;
+			 },
+			 chooseChannel(event){ 
+				 //console.log(event);  
+				 var left  = event.srcElement.offsetParent.localName!='article'? event.srcElement.offsetParent.offsetLeft: event.srcElement.offsetLeft;
+				 // var left = event.touch.clientX || event.touch.pageX;
+				  left = (Math.floor(left/150)*150+50); 
+				  this.positionStyle={ 
+					  'left':left+'px', 
+				  } 
+				  
 			 }
 		 },
 		 created(){
 			 console.log('list---created---'); 
-		 }
+		 } 
 	   }
 </script>
 
@@ -111,5 +130,32 @@
 		height: 100px;
 		justify-content: center;
 		align-items: center; 
+	}
+	.scroller{
+		position: relative;
+		flex-direction: row;  
+		border-bottom-width: 2px;
+		border-bottom-color: #EDEDED;
+		border-bottom-style: solid; 
+	}
+	.scroller-ative{
+		position: absolute;
+		width: 50px;
+		height: 4px;
+		bottom: 10px;
+		left: 50px;  
+		background-color: #b4282d; 
+		transition-property: left;
+		transition-duration: 0.1s;  
+		transition-delay: 0;
+		transition-timing-function: ease-in; 
+	}
+	.row{ 
+		width: 150px;  
+		 padding-top: 10px;
+		 padding-bottom: 20px;
+	} 
+	.text{
+		text-align: center; 
 	}
 </style>

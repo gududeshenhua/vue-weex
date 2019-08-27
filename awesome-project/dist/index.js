@@ -3242,6 +3242,12 @@ module.exports = {
       "property": "transform,backgroundColor",
       "duration": 300,
       "delay": 0
+    },
+    "scroller-ative": {
+      "property": "left",
+      "duration": 100,
+      "delay": 0,
+      "timingFunction": "ease-in"
     }
   },
   "moved": {
@@ -3292,6 +3298,33 @@ module.exports = {
     "height": "100",
     "justifyContent": "center",
     "alignItems": "center"
+  },
+  "scroller": {
+    "position": "relative",
+    "flexDirection": "row",
+    "borderBottomWidth": "2",
+    "borderBottomColor": "#EDEDED",
+    "borderBottomStyle": "solid"
+  },
+  "scroller-ative": {
+    "position": "absolute",
+    "width": "50",
+    "height": "4",
+    "bottom": "10",
+    "left": "50",
+    "backgroundColor": "#b4282d",
+    "transitionProperty": "left",
+    "transitionDuration": 100,
+    "transitionDelay": 0,
+    "transitionTimingFunction": "ease-in"
+  },
+  "row": {
+    "width": "150",
+    "paddingTop": "10",
+    "paddingBottom": "20"
+  },
+  "text": {
+    "textAlign": "center"
   }
 }
 
@@ -3332,20 +3365,38 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
+var animation = weex.requireModule('animation');
 exports.default = {
 	name: 'HelloWorld',
 	data: function data() {
 		return {
 			logo: 'https://gw.alicdn.com/tfs/TB1yopEdgoQMeJjy1XaXXcSsFXa-640-302.png',
 			list: ['A', 'B', 'C'],
-			isMove: false
+			isMove: false,
+			rows: ['推荐', '限时购', '新品', '居家', '餐厨', '配件', '服装', '电器', '洗护', '杂货', '美食', '等等', '等等'],
+			positionStyle: {}
 		};
 	},
 
 	methods: {
 		move: function move() {
 			this.isMove = !this.isMove;
+		},
+		chooseChannel: function chooseChannel(event) {
+			//console.log(event);  
+			var left = event.srcElement.offsetParent.localName != 'article' ? event.srcElement.offsetParent.offsetLeft : event.srcElement.offsetLeft;
+			// var left = event.touch.clientX || event.touch.pageX;
+			left = Math.floor(left / 150) * 150 + 50;
+			this.positionStyle = {
+				'left': left + 'px'
+			};
 		}
 	},
 	created: function created() {
@@ -3358,11 +3409,30 @@ exports.default = {
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: ["home"]
+  }, [_vm._m(0), _c('scroller', {
+    staticClass: ["scroller"],
+    attrs: {
+      "scrollDirection": "horizontal",
+      "loadmoreoffset": "750px",
+      "showScrollbar": "true"
+    },
+    on: {
+      "click": _vm.chooseChannel
+    }
   }, [_c('div', {
+    staticClass: ["scroller-ative"],
+    style: _vm.positionStyle
+  }), _vm._l((_vm.rows), function(item) {
+    return _c('div', {
+      staticClass: ["row"]
+    }, [_c('text', {
+      staticClass: ["text"]
+    }, [_vm._v(_vm._s(item))])])
+  })], 2)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: ["home-header"]
   }, [_c('div', {
     staticClass: ["scan"]
@@ -3380,7 +3450,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: ["home-message"]
   }, [_c('text', {
     staticClass: ["iconfont"]
-  }), _c('text', [_vm._v("消息")])])])])
+  }), _c('text', [_vm._v("消息")])])])
 }]}
 module.exports.render._withStripped = true
 
@@ -3745,7 +3815,7 @@ module.exports = {
     "borderTopStyle": "solid"
   },
   "isActive": {
-    "color": "#FF0000"
+    "color": "#b4282d"
   },
   "bottom-item": {
     "flex": 1,
