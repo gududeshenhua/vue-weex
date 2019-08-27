@@ -81,5 +81,6 @@
 		border-right-width: 1px;
 		border-right-color: black; 
 		border-right-style: solid; 
+		background-color: white;  
 	}
 </style>

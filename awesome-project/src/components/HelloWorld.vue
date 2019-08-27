@@ -27,12 +27,33 @@
 			<div class="row" v-for="item in rows">  
 				<text class="text">{{item}}</text>
 			</div>
-	   </scroller>
-	</div>
+	   </scroller> 
+	   <scroller class="scroll-list" offset-accuracy="300"  @loadmore="onloadmore" loadmoreoffset="0px" show-scrollbar=false>   
+		   <slider class="slider" interval="3000" auto-play="true"> 
+				  <div class="frame" v-for="img in imageList">
+					<image class="image" resize="cover" :src="img.src"></image>
+				  </div>
+				   <indicator class="indicator"></indicator> 
+		   </slider> 
+		   <div class="gd-list">
+			   <div class="gd-item" v-for="item in goodlist">
+				   <image class="gd-image" resize="cover" :src="item.img"></image>
+				   <text class="gd-info">{{item.info}}</text>
+				   <text class="gd-title">{{item.tlt}}</text>
+				   <text class="gd-price">{{item.price}}</text>
+			   </div>    
+		   </div>
+		   <loading class="loading" :display="showLoading">
+		   	<text class="indicator1">...</text>
+		   </loading> 
+	   </scroller> 
+	</div> 
 </template>
   
 <script>
 	 const animation = weex.requireModule('animation'); 
+	 const stream1 = weex.requireModule('stream');
+	 const modal = weex.requireModule('modal'); 
 	   export default{
 	   	 name:'HelloWorld', 
 		 data(){
@@ -41,7 +62,10 @@
 				 list:['A','B','C'],
 				 isMove:false  ,
 				 rows:['推荐','限时购','新品','居家','餐厨','配件','服装','电器','洗护','杂货','美食','等等','等等'],
-				 positionStyle:{}
+				 positionStyle:{},
+				 imageList:[],
+				 goodlist:[],
+				 showLoading:'show'    
 			 }
 		 },  
 		 methods:{
@@ -56,16 +80,105 @@
 				  this.positionStyle={ 
 					  'left':left+'px', 
 				  } 
-				  
-			 }
+				  //另外一种方法使用动画模块而不适用过渡
+			 },
+			 onloadmore(){ 
+				  console.log('onload--more'); 
+				  modal.toast({
+				  	message: 'loading',
+				  	duration: 1
+				  })  
+				  this.showLoading = 'show';
+				  setTimeout(() => {
+				  	this.goodlist.push(...this.goodlist);
+				  	this.showLoading = 'hide'
+				  }, 300) 
+			 } 
 		 },
 		 created(){
 			 console.log('list---created---'); 
+			 console.log(stream1); 
+			 this.http('api/home/index',res=>{
+				// debugger; 
+				console.log(res);    
+				this.imageList = res.data.result['banners']; 
+			 }) 
+			 this.http('api/home/pullGoods', res => {
+			 	let result = res.data.result;
+			 	this.goodlist = result['goods'];
+			 })
 		 } 
 	   }
 </script>
 
 <style scoped>
+	.scroll-list{
+		position: fixed;
+		top:250px; 
+		left: 0px;
+		right: 0px;
+		height: 850px;  
+	}  
+	.loading{
+		width: 100px;
+		height: 40px;  
+	}
+	.indicator1{  
+		text-align: center;
+	}
+	.gd-list{
+		flex-direction: row; 
+		flex-wrap: wrap;  
+		padding-top: 20px; 
+	}
+	.gd-item{
+	    width: 350px;
+	    height: 510px;
+	    margin-bottom: 20px;
+		margin-left: 15px;
+	}
+	.gd-image{
+	    width: 350px;
+	    height: 350px;
+	    background-color: #f4f4f4;
+	}
+	
+	.gd-title{
+	    font-size: 28px;
+	    color:#333;
+	    width: 350px;
+	    margin-top: 15px;
+	    overflow: hidden;
+	    lines:1;
+	    white-space: nowrap;
+	    text-overflow: ellipsis;
+	}
+	.gd-info{
+	    display: block;
+	    font-size: 28px;
+	    width: 350px;
+	    height: 65px;
+	    padding-left: 10px;
+	    padding-right: 10px;
+	    padding-top: 15px;
+	    padding-bottom: 15px;
+	    color:#9F8A60;
+	    background-color: #F1ECE2;
+	    overflow: hidden;
+	    lines:1;
+	    white-space: nowrap;
+	    text-overflow: ellipsis;
+	}
+	.gd-price{
+	    font-size: 28px;
+	    width: 350px;
+	    margin-top: 10px;
+	    color:#b4282d;
+	    overflow: hidden;
+	    lines:1;
+	    white-space: nowrap;
+	    text-overflow: ellipsis;
+	}
 	.message{
 		padding: 10px; 
 	}
@@ -158,4 +271,33 @@
 	.text{
 		text-align: center; 
 	}
+	.slider{
+		margin-top: 20px;
+		margin-left: 25px;
+		width: 700px;
+		height: 400px;
+		border-width: 2px;
+		border-style: solid;
+		border-color: #41B883;
+	}
+	.frame{
+		width: 700px;
+		height: 400px;
+		position: relative;
+	}
+	.image{
+		width: 700px;
+		height: 400px; 
+	}
+	.indicator {
+     position: absolute;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     height: 60px;
+     background-color: rgba(0, 0, 0, 0);
+     item-color: #ddd;  
+     item-selected-color: #b4282d; 
+  } 
 </style>
+ 

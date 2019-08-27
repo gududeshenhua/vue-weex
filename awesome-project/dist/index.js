@@ -79,7 +79,10 @@ var _require = __webpack_require__(1),
     router = _require.router;
 
 var App = __webpack_require__(19);
+var mixin = __webpack_require__(32);
+console.log('mixin', mixin);
 /* eslint-disable no-new */
+Vue.mixin(mixin);
 new Vue(Vue.util.extend({ el: '#root', router: router }, App));
 router.push('/');
 
@@ -3213,6 +3216,72 @@ module.exports = __vue_exports__
 /***/ (function(module, exports) {
 
 module.exports = {
+  "scroll-list": {
+    "position": "fixed",
+    "top": "250",
+    "left": "0",
+    "right": "0",
+    "height": "850"
+  },
+  "loading": {
+    "width": "100",
+    "height": "40"
+  },
+  "indicator1": {
+    "textAlign": "center"
+  },
+  "gd-list": {
+    "flexDirection": "row",
+    "flexWrap": "wrap",
+    "paddingTop": "20"
+  },
+  "gd-item": {
+    "width": "350",
+    "height": "510",
+    "marginBottom": "20",
+    "marginLeft": "15"
+  },
+  "gd-image": {
+    "width": "350",
+    "height": "350",
+    "backgroundColor": "#f4f4f4"
+  },
+  "gd-title": {
+    "fontSize": "28",
+    "color": "#333333",
+    "width": "350",
+    "marginTop": "15",
+    "overflow": "hidden",
+    "lines": 1,
+    "whiteSpace": "nowrap",
+    "textOverflow": "ellipsis"
+  },
+  "gd-info": {
+    "display": "block",
+    "fontSize": "28",
+    "width": "350",
+    "height": "65",
+    "paddingLeft": "10",
+    "paddingRight": "10",
+    "paddingTop": "15",
+    "paddingBottom": "15",
+    "color": "#9F8A60",
+    "backgroundColor": "#F1ECE2",
+    "overflow": "hidden",
+    "lines": 1,
+    "whiteSpace": "nowrap",
+    "textOverflow": "ellipsis"
+  },
+  "gd-price": {
+    "fontSize": "28",
+    "width": "350",
+    "marginTop": "10",
+    "color": "#b4282d",
+    "overflow": "hidden",
+    "lines": 1,
+    "whiteSpace": "nowrap",
+    "textOverflow": "ellipsis"
+  },
   "message": {
     "paddingTop": "10",
     "paddingRight": "10",
@@ -3325,6 +3394,34 @@ module.exports = {
   },
   "text": {
     "textAlign": "center"
+  },
+  "slider": {
+    "marginTop": "20",
+    "marginLeft": "25",
+    "width": "700",
+    "height": "400",
+    "borderWidth": "2",
+    "borderStyle": "solid",
+    "borderColor": "#41B883"
+  },
+  "frame": {
+    "width": "700",
+    "height": "400",
+    "position": "relative"
+  },
+  "image": {
+    "width": "700",
+    "height": "400"
+  },
+  "indicator": {
+    "position": "absolute",
+    "left": 0,
+    "right": 0,
+    "bottom": 0,
+    "height": "60",
+    "backgroundColor": "rgba(0,0,0,0)",
+    "itemColor": "#dddddd",
+    "itemSelectedColor": "#b4282d"
   }
 }
 
@@ -3338,6 +3435,28 @@ module.exports = {
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3373,6 +3492,8 @@ Object.defineProperty(exports, "__esModule", {
 //
 
 var animation = weex.requireModule('animation');
+var stream1 = weex.requireModule('stream');
+var modal = weex.requireModule('modal');
 exports.default = {
 	name: 'HelloWorld',
 	data: function data() {
@@ -3381,7 +3502,10 @@ exports.default = {
 			list: ['A', 'B', 'C'],
 			isMove: false,
 			rows: ['推荐', '限时购', '新品', '居家', '餐厨', '配件', '服装', '电器', '洗护', '杂货', '美食', '等等', '等等'],
-			positionStyle: {}
+			positionStyle: {},
+			imageList: [],
+			goodlist: [],
+			showLoading: 'show'
 		};
 	},
 
@@ -3396,11 +3520,40 @@ exports.default = {
 			left = Math.floor(left / 150) * 150 + 50;
 			this.positionStyle = {
 				'left': left + 'px'
+				//另外一种方法使用动画模块而不适用过渡
 			};
+		},
+		onloadmore: function onloadmore() {
+			var _this = this;
+
+			console.log('onload--more');
+			modal.toast({
+				message: 'loading',
+				duration: 1
+			});
+			this.showLoading = 'show';
+			setTimeout(function () {
+				var _goodlist;
+
+				(_goodlist = _this.goodlist).push.apply(_goodlist, _toConsumableArray(_this.goodlist));
+				_this.showLoading = 'hide';
+			}, 300);
 		}
 	},
 	created: function created() {
+		var _this2 = this;
+
 		console.log('list---created---');
+		console.log(stream1);
+		this.http('api/home/index', function (res) {
+			// debugger; 
+			console.log(res);
+			_this2.imageList = res.data.result['banners'];
+		});
+		this.http('api/home/pullGoods', function (res) {
+			var result = res.data.result;
+			_this2.goodlist = result['goods'];
+		});
 	}
 };
 
@@ -3430,7 +3583,60 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('text', {
       staticClass: ["text"]
     }, [_vm._v(_vm._s(item))])])
-  })], 2)])
+  })], 2), _c('scroller', {
+    staticClass: ["scroll-list"],
+    attrs: {
+      "offsetAccuracy": "300",
+      "loadmoreoffset": "0px",
+      "showScrollbar": "false"
+    },
+    on: {
+      "loadmore": _vm.onloadmore
+    }
+  }, [_c('slider', {
+    staticClass: ["slider"],
+    attrs: {
+      "interval": "3000",
+      "autoPlay": "true"
+    }
+  }, [_vm._l((_vm.imageList), function(img) {
+    return _c('div', {
+      staticClass: ["frame"]
+    }, [_c('image', {
+      staticClass: ["image"],
+      attrs: {
+        "resize": "cover",
+        "src": img.src
+      }
+    })])
+  }), _c('indicator', {
+    staticClass: ["indicator"]
+  })], 2), _c('div', {
+    staticClass: ["gd-list"]
+  }, _vm._l((_vm.goodlist), function(item) {
+    return _c('div', {
+      staticClass: ["gd-item"]
+    }, [_c('image', {
+      staticClass: ["gd-image"],
+      attrs: {
+        "resize": "cover",
+        "src": item.img
+      }
+    }), _c('text', {
+      staticClass: ["gd-info"]
+    }, [_vm._v(_vm._s(item.info))]), _c('text', {
+      staticClass: ["gd-title"]
+    }, [_vm._v(_vm._s(item.tlt))]), _c('text', {
+      staticClass: ["gd-price"]
+    }, [_vm._v(_vm._s(item.price))])])
+  })), _c('loading', {
+    staticClass: ["loading"],
+    attrs: {
+      "display": _vm.showLoading
+    }
+  }, [_c('text', {
+    staticClass: ["indicator1"]
+  }, [_vm._v("...")])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: ["home-header"]
@@ -3624,7 +3830,7 @@ var _bottom = __webpack_require__(26);
 
 var _bottom2 = _interopRequireDefault(_bottom);
 
-__webpack_require__(29);
+__webpack_require__(30);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3770,7 +3976,7 @@ __vue_styles__.push(__webpack_require__(27)
 __vue_exports__ = __webpack_require__(28)
 
 /* template */
-var __vue_template__ = __webpack_require__(30)
+var __vue_template__ = __webpack_require__(29)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -3827,7 +4033,8 @@ module.exports = {
     "paddingLeft": "0",
     "borderRightWidth": "1",
     "borderRightColor": "#000000",
-    "borderRightStyle": "solid"
+    "borderRightStyle": "solid",
+    "backgroundColor": "#FFFFFF"
   }
 }
 
@@ -3905,12 +4112,6 @@ exports.default = {
 /* 29 */
 /***/ (function(module, exports) {
 
-throw new Error("Module parse failed: Unexpected token (1:9)\nYou may need an appropriate loader to handle this file type.\n| html,body{ \r\n| \tpadding: 0px;\r\n| \tmargin: 0px;\r");
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports) {
-
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: ["bottom"]
@@ -3986,6 +4187,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 module.exports.render._withStripped = true
 
 /***/ }),
+/* 30 */
+/***/ (function(module, exports) {
+
+throw new Error("Module parse failed: Unexpected token (1:9)\nYou may need an appropriate loader to handle this file type.\n| html,body{ \r\n| \tpadding: 0px;\r\n| \tmargin: 0px;\r");
+
+/***/ }),
 /* 31 */
 /***/ (function(module, exports) {
 
@@ -3993,6 +4200,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', [_c('topHeader'), _c('router-view'), _c('Bottom')], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var stream = weex.requireModule('stream');
+var modal = weex.requireModule('modal');
+/* console.log(modal); 
+console.log(weex);  
+console.log(stream); */
+module.exports = {
+	methods: {
+		http: function http(api, callback) {
+			return stream.fetch({
+				method: 'GET',
+				type: 'json',
+				url: 'http://cdn.zwwill.com/yanxuan/' + api
+			}, callback);
+		}
+	}
+};
 
 /***/ })
 /******/ ]);
