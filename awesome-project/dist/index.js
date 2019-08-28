@@ -3037,11 +3037,105 @@ module.exports = __vue_exports__
 /***/ (function(module, exports) {
 
 module.exports = {
+  "item-top": {
+    "flexDirection": "row",
+    "alignItems": "center",
+    "paddingTop": "15",
+    "paddingBottom": "15"
+  },
+  "item-top-header": {
+    "borderRadius": 50,
+    "width": "60",
+    "height": "60",
+    "backgroundColor": "#D3D3D3",
+    "marginLeft": "20"
+  },
+  "item-top-text": {
+    "fontSize": "30",
+    "marginLeft": "20"
+  },
+  "speator": {
+    "height": "30",
+    "backgroundColor": "#f4f4f4"
+  },
+  "item-content-image": {
+    "backgroundColor": "#D3D3D3",
+    "width": "750",
+    "height": "300"
+  },
   "message": {
     "paddingTop": "10",
     "paddingRight": "10",
     "paddingBottom": "10",
     "paddingLeft": "10"
+  },
+  "header": {
+    "height": "100",
+    "backgroundColor": "#fafafa",
+    "alignContent": "center",
+    "borderBottomWidth": "1",
+    "borderBottomColor": "#d9d9d9"
+  },
+  "header-text": {
+    "fontSize": "40",
+    "height": "100",
+    "paddingTop": "20",
+    "textAlign": "center"
+  },
+  "list-1": {
+    "width": "750",
+    "height": "200",
+    "paddingTop": "20",
+    "flexDirection": "row",
+    "alignItems": "center"
+  },
+  "list1-item": {
+    "width": "270",
+    "height": "160",
+    "marginLeft": "20",
+    "borderWidth": "1",
+    "borderColor": "#D3D3D3",
+    "borderStyle": "solid",
+    "position": "relative"
+  },
+  "list1-image": {
+    "width": "270",
+    "height": "160",
+    "borderRadius": "6",
+    "position": "absolute",
+    "left": "0",
+    "top": "0"
+  },
+  "list1-text": {
+    "fontSize": "28",
+    "color": "#FFFFFF",
+    "marginLeft": "20",
+    "marginRight": "20",
+    "textAlign": "center",
+    "lines": 1,
+    "whiteSpace": "nowrap",
+    "overflow": "hidden",
+    "textOverflow": "ellipsis",
+    "marginTop": "50"
+  },
+  "item-content-text": {
+    "flexDirection": "row",
+    "paddingTop": "10",
+    "paddingBottom": "10"
+  },
+  "text-left": {
+    "fontSize": "40",
+    "flex": 1,
+    "textIndent": "10"
+  },
+  "text-right": {
+    "fontSize": "40",
+    "paddingRight": "10",
+    "color": "#8B0000"
+  },
+  "text-bottom": {
+    "fontSize": "30",
+    "textIndent": "10"
   }
 }
 
@@ -3060,15 +3154,54 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
 	data: function data() {
-		return {};
+		return {
+			list: [],
+			articles: []
+		};
 	},
 
-	methods: {},
+	methods: {
+		loadmore: function loadmore() {}
+	},
 	created: function created() {
-		console.log('list---created??????????---');
+		var _this = this;
+
+		this.http('api/topic/index', function (res) {
+			_this.list = res.data.result['topics'];
+		});
+		this.http('api/topic/articles', function (res) {
+			_this.articles = res.data.result['articles'];
+		});
 	}
 };
 
@@ -3077,10 +3210,74 @@ exports.default = {
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('text', {
-    staticClass: ["message"]
-  }, [_vm._v("this is list")])
-},staticRenderFns: []}
+  return _c('div', {
+    staticClass: ["topic"]
+  }, [_vm._m(0), _c('scroller', {
+    staticClass: ["list-all"],
+    attrs: {
+      "showScrollbar": "false"
+    },
+    on: {
+      "loadmore": _vm.loadmore
+    }
+  }, [_c('scroller', {
+    staticClass: ["list-1"],
+    attrs: {
+      "showScrollbar": "false",
+      "scrollDirection": "horizontal"
+    }
+  }, _vm._l((_vm.list), function(item) {
+    return _c('div', {
+      staticClass: ["list1-item"]
+    }, [_c('image', {
+      staticClass: ["list1-image"],
+      attrs: {
+        "resize": "cover",
+        "src": item.img
+      }
+    }), _c('text', {
+      staticClass: ["list1-text"]
+    }, [_vm._v(_vm._s(item.name))])])
+  })), _vm._l((_vm.articles), function(item) {
+    return _c('div', {
+      staticClass: ["topic-item"]
+    }, [_c('div', {
+      staticClass: ["speator"]
+    }), _c('div', {
+      staticClass: ["item-top"]
+    }, [_c('image', {
+      staticClass: ["item-top-header"],
+      attrs: {
+        "resize": "cover",
+        "src": item.autherImg
+      }
+    }), _c('text', {
+      staticClass: ["item-top-text"]
+    }, [_vm._v(_vm._s(item.auther))])]), _c('div', {
+      staticClass: ["item-content"]
+    }, [_c('image', {
+      staticClass: ["item-content-image"],
+      attrs: {
+        "resize": "cover",
+        "src": item.img
+      }
+    }), _c('div', {
+      staticClass: ["item-content-text"]
+    }, [_c('text', {
+      staticClass: ["text-left"]
+    }, [_vm._v(_vm._s(item.tlt))]), _c('text', {
+      staticClass: ["text-right"]
+    }, [_vm._v(_vm._s(item.price))])]), _c('text', {
+      staticClass: ["text-bottom"]
+    }, [_vm._v(_vm._s(item.info))])])])
+  })], 2)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: ["header"]
+  }, [_c('text', {
+    staticClass: ["header-text"]
+  }, [_vm._v("专题")])])
+}]}
 module.exports.render._withStripped = true
 
 /***/ }),
