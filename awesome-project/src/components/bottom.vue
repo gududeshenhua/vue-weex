@@ -7,7 +7,7 @@
 			<div class="bottom-item" @click="routerGo('1')">
 			 <text class="bar-ic iconfont" :class="[this.isActive('1')]">&#xe61a;</text> 
 			 <text class="bar-text" :class="[this.isActive('1')]">首页</text>
-			</div>   
+			</div>       
 			<div class="bottom-item" @click="routerGo('2')">
 			 <text class="bar-ic iconfont" :class="[this.isActive('2')]">&#xe61b;</text> 
 			 <text class="bar-text" :class="[this.isActive('2')]">专题</text>
@@ -31,12 +31,19 @@
 <script>
 	//import '../common/style.css'; 
 	export default{  
-		data(){  
-			return{
+		data(){   
+			return{ 
 				active:'1'
 			}
 		},
 		methods:{
+			initIconFont () {
+              let domModule = weex.requireModule('dom')
+			  domModule.addRule('fontFace', {
+               'fontFamily': 'iconfont',
+               'src':  "url('http://at.alicdn.com/t/font_882126_rqg9r7f08d.ttf')"
+             })    
+            }, 
 			isActive(url){ 
 				return this.active == url?'isActive':''
 			},
@@ -54,12 +61,37 @@
 					this.$router.push('/last') 
 				}
 			} 
+		},
+		created(){
+			this.initIconFont(); 
 		}
 	}
 </script>
 
-<style scoped> 
-	.bottom{
+<style scoped>   
+    .iconfont{  
+		font-size: 40px; 
+		font-family: iconfont; 
+	} 
+    /* @import "../common/style.css";  */     
+	/* .iconfont {
+		  font-family:"iconfont" !important;
+		  font-size:50px;
+		  font-style:normal;
+		  -webkit-font-smoothing: antialiased;
+		  -webkit-text-stroke-width: 0.2px;
+		  -moz-osx-font-smoothing: grayscale; 
+		}  */
+	/*@font-face {
+	  font-family: 'iconfont';   
+	  src: url('//at.alicdn.com/t/font_882126_rqg9r7f08d.eot');
+	  src: url('//at.alicdn.com/t/font_882126_rqg9r7f08d.eot?#iefix') format('embedded-opentype'),
+	  url('//at.alicdn.com/t/font_882126_rqg9r7f08d.woff2') format('woff2'),
+	  url('//at.alicdn.com/t/font_882126_rqg9r7f08d.woff') format('woff'),
+	  url('//at.alicdn.com/t/font_882126_rqg9r7f08d.ttf') format('truetype'),
+	  url('//at.alicdn.com/t/font_882126_rqg9r7f08d.svg#iconfont') format('svg');
+	} */ 
+	.bottom{ 
 		position: fixed;
 		bottom: 0px;
 		flex-direction: row;

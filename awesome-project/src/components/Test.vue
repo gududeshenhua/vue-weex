@@ -56,7 +56,15 @@
  
 <style scoped>
 	.topic{
-		
+		position: relative;
+	}
+	.list-all{
+		position: fixed;  
+ 		left: 0px;
+		top: 200px; 
+		bottom: 160px; 
+		right: 0px; 
+		z-index: 99; 
 	}
 	.item-top{
 		flex-direction: row; 

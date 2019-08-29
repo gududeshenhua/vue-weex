@@ -13,10 +13,10 @@
 <script>
 import topHeader from './components/topHeader.vue';
 import Bottom from './components/bottom.vue';  
-import "./common/style.css";  
+/* import "./common/style.css";  */
 var modal = weex.requireModule('modal');
 export default {
-  name: 'App',
+  name: 'App', 
 	components:{topHeader,Bottom},
   data () {
     return {

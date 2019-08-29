@@ -12,24 +12,24 @@
 	  <div class="home-header">
 		  <div class="scan">
 			  <text class="iconfont"></text>
-			  <text>扫一扫</text>
+			  <text @click="dosometing">扫一扫</text>
 		  </div>
 		  <div class="search">
 			  <input class="search-input" type="text" placeholder="请随便输入点什么吧"></input>
 		  </div>  
 		  <div class="home-message">
 			  <text class="iconfont"></text>
-			  <text>消息</text>  
+			  <text>消息</text>   
 		  </div>
 	  </div>
-	   <scroller class="scroller" @click="chooseChannel" scroll-direction="horizontal" loadmoreoffset="750px" show-scrollbar=true> 
+	   <scroller class="scroller" @click="chooseChannel" scroll-direction="horizontal"   @loadmore="onloadmore" show-scrollbar=false> 
 	        <div class="scroller-ative" :style="positionStyle"></div>
-			<div class="row" v-for="item in rows">  
-				<text class="text">{{item}}</text>
+			<div class="row" v-for="item in rows">   
+				<text class="text">{{item}}</text> 
 			</div>
-	   </scroller> 
-	   <scroller class="scroll-list" offset-accuracy="300"  @loadmore="onloadmore" loadmoreoffset="0px" show-scrollbar=false>   
-		   <slider class="slider" interval="3000" auto-play="true"> 
+	   </scroller>   
+	   <scroller class="scroll-list"   @loadmore="onloadmore" loadmoreoffset="100" show-scrollbar=false>   
+		   <slider class="slider" interval="3000" auto-play="true">    
 				  <div class="frame" v-for="img in imageList">
 					<image class="image" resize="cover" :src="img.src"></image>
 				  </div>
@@ -51,9 +51,9 @@
 </template>
   
 <script>
-	 const animation = weex.requireModule('animation'); 
-	 const stream1 = weex.requireModule('stream');
-	 const modal = weex.requireModule('modal'); 
+	// const animation = weex.requireModule('animation'); 
+	// const stream1 = weex.requireModule('stream');
+	 const modal = weex.requireModule('modal');  
 	   export default{
 	   	 name:'HelloWorld', 
 		 data(){
@@ -66,13 +66,28 @@
 				 imageList:[],
 				 goodlist:[],
 				 showLoading:'show'    
-			 }
+			 } 
 		 },  
 		 methods:{
+			 onloadmore(){ 
+			 				  console.log('onload--more');  
+			 				  modal.toast({
+			 				  	message: 'loading',
+			 				  	duration: 1
+			 				  })  
+			 				  this.showLoading = 'show';
+			 				  setTimeout(() => {
+			 				  	this.goodlist.push(...this.goodlist);
+			 				  	this.showLoading = 'hide'
+			 				  }, 300) 
+			 },
+			 dosometing(){
+				console.log('123132')
+			 }, 
 			 move(){  
 			 	this.isMove = !this.isMove;
 			 },
-			 chooseChannel(event){ 
+			 chooseChannel(event){  
 				 //console.log(event);  
 				 var left  = event.srcElement.offsetParent.localName!='article'? event.srcElement.offsetParent.offsetLeft: event.srcElement.offsetLeft;
 				 // var left = event.touch.clientX || event.touch.pageX;
@@ -81,23 +96,11 @@
 					  'left':left+'px', 
 				  } 
 				  //另外一种方法使用动画模块而不适用过渡
-			 },
-			 onloadmore(){ 
-				  console.log('onload--more'); 
-				  modal.toast({
-				  	message: 'loading',
-				  	duration: 1
-				  })  
-				  this.showLoading = 'show';
-				  setTimeout(() => {
-				  	this.goodlist.push(...this.goodlist);
-				  	this.showLoading = 'hide'
-				  }, 300) 
-			 } 
+			 }
 		 },
 		 created(){
 			 console.log('list---created---'); 
-			 console.log(stream1); 
+			 //console.log(stream1); 
 			 this.http('api/home/index',res=>{
 				// debugger; 
 				console.log(res);    
@@ -107,17 +110,18 @@
 			 	let result = res.data.result;
 			 	this.goodlist = result['goods'];
 			 })
-		 } 
+		 }  
 	   }
 </script>
 
 <style scoped>
+	
 	.scroll-list{
-		position: fixed;
+		position: fixed; 
 		top:250px; 
 		left: 0px;
 		right: 0px;
-		height: 850px;  
+		bottom: 160px;  
 	}  
 	.loading{
 		width: 100px;
